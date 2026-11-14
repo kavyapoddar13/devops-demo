@@ -1,0 +1,53 @@
+---
+- name: Configure Application Server and Deploy DevOps Demo
+  hosts: appservers
+  become: yes
+  vars:
+    app_port: 8080
+    app_name: devops-demo
+    app_dir: /opt/devops-demo
+    app_user: devops
+    app_jar_src: "{{ playbook_dir }}/../target/devops-demo.jar"
+
+  roles:
+    - common
+
+  tasks:
+    - name: Install OpenJDK 17 Runtime Environment
+      package:
+        name: openjdk-17-jre-headless
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Copy packaged Application JAR to target directory
+      copy:
+        src: "{{ app_jar_src }}"
+        dest: "{{ app_dir }}/devops-demo.jar"
+        owner: "{{ app_user }}"
+        group: "{{ app_user }}"
+        mode: '0644'
+      notify: restart devops-demo service
+
+    - name: Deploy Systemd service unit from Jinja2 template
+      template:
+        src: templates/devops-demo.service.j2
+        dest: /etc/systemd/system/devops-demo.service
+        owner: root
+        group: root
+        mode: '0644'
+      notify: restart devops-demo service
+
+    - name: Ensure devops-demo service is started and enabled at boot
+      systemd:
+        name: devops-demo
+        state: started
+        enabled: yes
+        daemon_reload: yes
+
+  handlers:
+    - name: restart devops-demo service
+      systemd:
+        name: devops-demo
+        state: restarted
+        daemon_reload: yes
+        enabled: yes

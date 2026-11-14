@@ -1,0 +1,18 @@
+[Unit]
+Description=DevOps Demo Spring Boot Application Service
+After=network.target
+
+[Service]
+Type=simple
+User={{ app_user }}
+Group={{ app_user }}
+WorkingDirectory={{ app_dir }}
+ExecStart=/usr/bin/java -Dserver.port={{ app_port }} -jar {{ app_dir }}/devops-demo.jar
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=devops-demo
+
+[Install]
+WantedBy=multi-user.target

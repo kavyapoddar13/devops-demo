@@ -1,0 +1,34 @@
+---
+# tasks file for common role
+- name: Update apt cache (on Debian/Ubuntu systems)
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  when: ansible_os_family == "Debian"
+
+- name: Ensure base packages are present
+  package:
+    name:
+      - curl
+      - unzip
+    state: present
+
+- name: Create dedicated system group for the application
+  group:
+    name: "{{ app_user }}"
+    state: present
+
+- name: Create dedicated system user for the application
+  user:
+    name: "{{ app_user }}"
+    group: "{{ app_user }}"
+    system: yes
+    create_home: no
+
+- name: Ensure application deployment directory exists
+  file:
+    path: "{{ app_dir }}"
+    state: directory
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    mode: '0755'
