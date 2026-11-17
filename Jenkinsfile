@@ -1,56 +1,77 @@
 pipeline {
     agent any
 
-    tools {
-        maven 'Maven-3.9'
-        jdk 'JDK-17'
+    environment {
+        VENV_DIR = '.venv'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                echo 'Checking out source code from Git repository...'
+                echo 'Checking out source code from GitHub...'
                 checkout scm
             }
         }
 
-        stage('Automated Tests') {
+        stage('Setup Python Environment') {
             steps {
-                echo 'Running automated JUnit unit tests (CI Enhancement)...'
-                sh 'mvn test'
+                echo 'Creating virtual environment and installing dependencies...'
+                sh '''
+                    python3 -m venv $VENV_DIR
+                    . $VENV_DIR/bin/activate
+                    pip install --upgrade pip --quiet
+                    pip install -r requirements.txt
+                '''
+            }
+        }
+
+        stage('Lint') {
+            steps {
+                echo 'Running linter (flake8)...'
+                sh '''
+                    . $VENV_DIR/bin/activate
+                    pip install flake8 --quiet
+                    flake8 app/ --max-line-length=100 --ignore=E501,W503
+                '''
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running pytest with coverage...'
+                sh '''
+                    . $VENV_DIR/bin/activate
+                    pytest tests/ -v --tb=short --cov=app --cov-report=xml --cov-report=term
+                '''
             }
             post {
                 always {
-                    junit 'target/surefire-reports/*.xml'
+                    echo 'Tests completed.'
                 }
             }
         }
 
-        stage('Build & Package') {
+        stage('Build Verification') {
             steps {
-                echo 'Compiling and packaging JAR artifact...'
-                sh 'mvn clean package -DskipTests'
+                echo 'Verifying app can be imported...'
+                sh '''
+                    . $VENV_DIR/bin/activate
+                    python3 -c "from app.main import app; print('App import: OK')"
+                '''
             }
         }
-
-        stage('Post-Build Archive') {
-            steps {
-                echo 'Archiving build artifacts...'
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-            }
-        }
-    }
-
-    triggers {
-        pollSCM('* * * * *')
     }
 
     post {
         success {
-            echo 'Pipeline completed successfully! Artifact is packaged and archived.'
+            echo 'Pipeline PASSED — All stages completed successfully!'
         }
         failure {
-            echo 'Pipeline failed! Check build or test logs for integration errors.'
+            echo 'Pipeline FAILED — Check logs above for errors.'
+        }
+        always {
+            echo 'Cleaning up workspace...'
+            cleanWs()
         }
     }
 }
