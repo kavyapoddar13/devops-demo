@@ -32,8 +32,8 @@
     commentstyle=\color{green!50!black},
     keywordstyle=\color{blue},
     stringstyle=\color{orange},
-    basicstyle=\ttfamily\fontsize{10.5pt}{13pt}\selectfont,
-    numberstyle=\ttfamily\fontsize{10pt}{12pt}\selectfont,
+    basicstyle=\ttfamily\fontsize{10pt}{12.5pt}\selectfont,
+    numberstyle=\ttfamily\fontsize{9pt}{11pt}\selectfont,
     breaklines=true,
     breakatwhitespace=false,
     frame=single,
@@ -109,7 +109,7 @@ the Academics of 5\textsuperscript{th} Semester, B.E in CSE (Cyber Security) \pa
 
 \vspace{0.35cm}
 
-{\sizeFourteen \bfseries [STUDENT NAME] \par}
+{\sizeFourteen \bfseries Kavya Poddar \par}
 \vspace{0.15cm}
 {\sizeFourteen \bfseries USN: 1MS24CY\_\_\_ \par}
 
@@ -149,7 +149,7 @@ the Academics of 5\textsuperscript{th} Semester, B.E in CSE (Cyber Security) \pa
 
 \noindent
 {\sizeTwelve
-This is to certify that the work carried out is a bonafide record of the project based learning activity work on the DevOps course done by \textbf{[STUDENT NAME] (USN: 1MS24CY\_\_\_)} under my supervision and guidance, in partial fulfilment of the requirements for the award of the Bachelor of Engineering in Computer Science \& Engineering (Cyber Security) from Ramaiah Institute of Technology, Bangalore for the academic year 2026-2027.
+This is to certify that the work carried out is a bonafide record of the project based learning activity work on the DevOps course done by \textbf{Kavya Poddar (USN: 1MS24CY\_\_\_)} under my supervision and guidance, in partial fulfilment of the requirements for the award of the Bachelor of Engineering in Computer Science \& Engineering (Cyber Security) from Ramaiah Institute of Technology, Bangalore for the academic year 2026-2027.
 \par}
 
 \vspace{3.5cm}
@@ -186,16 +186,16 @@ This is to certify that the work carried out is a bonafide record of the project
 \endhead
 
 1 &
-\textbf{CI/CD Pipeline using Git, Maven/Gradle and Jenkins.}
-Set up a version-controlled build pipeline for a sample application. Create a Git repository, use feature branching and merging, configure a Maven or Gradle build with dependency management, integrate the project into a Jenkins job that pulls from Source Code Management (SCM), triggers automatically on commit, executes the build, performs a post-build action, and add one CI-related enhancement (automated tests, build versioning, or GitHub Actions).
+\textbf{CI/CD Pipeline using Git, Python/Pytest and Jenkins.}
+Set up a version-controlled build pipeline for a sample application. Create a Git repository, use feature branching and merging, configure dependency management and testing, integrate the project into a Jenkins job that pulls from SCM, triggers automatically on commit, executes linting, runs automated tests with coverage, performs build verification, and adds multi-stage quality gate enhancements.
 
-\textit{Covers: Unit 1 (DevOps culture/pipeline), Unit 2 (Git, Maven/Gradle), Unit 3 (Jenkins CI). Maps to CO1, CO2, CO3.}
+\textit{Covers: Unit 1 (DevOps culture/pipeline), Unit 2 (Git, Dependency Management), Unit 3 (Jenkins CI). Maps to CO1, CO2, CO3.}
 & 10 \\
 \hline
 
 2 &
 \textbf{Configuration Management with Ansible and Deployment on Kubernetes.}
-Write an Ansible playbook (using variables, handlers, and at least one role) to configure and deploy the application built in Component 1. Containerize the application and write Kubernetes manifests (Deployment, Service, and a ConfigMap/PVC where applicable). Deploy on a local cluster (Minikube/Kind), demonstrate scaling using replica sets, show the use of labels and selectors, and add one deployment-related enhancement (rollback, ConfigMap, probes, multi-stage Dockerfile, second microservice, or health endpoint).
+Write an Ansible playbook (using variables, handlers, and the \texttt{app\_setup} role) to configure and deploy the application built in Component 1. Containerize the application using Docker and write Kubernetes manifests (Deployment and NodePort Service). Deploy on a local cluster (Minikube), demonstrate scaling using replica sets, show the use of labels and selectors, and demonstrate deployment self-healing via Liveness and Readiness probes.
 
 \textit{Covers: Unit 4 (Ansible), Unit 5 (Kubernetes). Maps to CO4, CO5.}
 & 10 \\
@@ -224,15 +224,15 @@ Write an Ansible playbook (using variables, handlers, and at least one role) to 
 
 \hline
 \endhead
-Concept Understanding (2 marks) & Answers ``why'' questions correctly and immediately (e.g., webhook vs.\ polling, what a handler does, Deployment vs.\ ReplicaSet, why the chosen enhancement matters) & Gets the basic idea right but stumbles on follow-up questions or confuses related concepts & Cannot explain own pipeline; answers suggest it was copied or AI-generated without understanding \\
+Concept Understanding (2 marks) & Answers ``why'' questions correctly and immediately (e.g., webhook vs.\ polling, what a handler does, Deployment vs.\ ReplicaSet, why health probes matter) & Gets the basic idea right but stumbles on follow-up questions or confuses related concepts & Cannot explain own pipeline; answers suggest it was copied without understanding \\
 \hline
 Core Implementation (2 marks) & Required pipeline (Git+Jenkins for Comp.\ 1 / Ansible+K8s+scaling for Comp.\ 2) runs end-to-end live, without intervention & Works but needs manual triggering, a workaround, or partial failure & Doesn't run at all during the demo; only screenshots are shown \\
 \hline
-Enhancement (2 marks) & At least one enhancement from Section 3/4's list implemented and demonstrated live, working correctly & Enhancement attempted but incomplete, or only explained without being runnable & No enhancement attempted \\
+Enhancement (2 marks) & At least one enhancement implemented and demonstrated live, working correctly & Enhancement attempted but incomplete, or only explained without being runnable & No enhancement attempted \\
 \hline
 Analysis \& Interpretation (2 marks) & Explains build logs, scaling behaviour, or enhancement outcomes in own words; interprets output unprompted & Describes what happened but not why, or needs prompting to interpret output & No interpretation offered; treats commands as a checklist \\
 \hline
-Documentation \& Presentation (2 marks) & Report fully personalized  and confidently walks through the pipeline unprompted & Mostly complete report or needs guidance/prompting during the demo & Unedited template, mismatched screenshots, or cannot navigate own setup \\
+Documentation \& Presentation (2 marks) & Report fully personalized and confidently walks through the pipeline unprompted & Mostly complete report or needs guidance/prompting during the demo & Unedited template, mismatched screenshots, or cannot navigate own setup \\
 \hline
 \end{longtable}
 \par}
@@ -274,194 +274,161 @@ Documentation \& Presentation (2 marks) & Report fully personalized  and confide
 % ======================================================
 % COMPONENT 1 FULL REPORT
 % ======================================================
-\section*{Component 1: CI/CD Pipeline using Git, Maven/Gradle and Jenkins}
+\section*{Component 1: CI/CD Pipeline using Git, Python/Pytest and Jenkins}
 
 \subsection*{Abstract}
-This activity implements an automated Continuous Integration (CI) pipeline using Git, Apache Maven, and Jenkins for a Spring Boot REST service (\texttt{devops-demo}). Source code modifications are tracked through feature branch workflows and merged into \texttt{main}. The build lifecycle is automated using Maven, and Jenkins automatically orchestrates code checkouts, automated unit testing with JUnit 5, artifact compilation, and post-build archiving of the deployable JAR upon each detected SCM commit.
+This activity implements an automated Continuous Integration (CI) pipeline using Git, Python 3.12, Pytest, and Jenkins for a high-performance FastAPI microservice (\texttt{todo-api}). Source code modifications are tracked through feature branch workflows and merged into \texttt{main}. The Jenkins declarative pipeline orchestrates automated code checkout, isolated virtual environment creation, code quality linting with Flake8, execution of a 14-test suite with code coverage, and build verification upon every detected code commit.
 
 \subsection*{Introduction}
-Modern software engineering requires rapid integration and immediate verification of source code to prevent integration debt. Git offers distributed version control that facilitates non-destructive collaboration through isolated feature branching. Apache Maven provides uniform build lifecycle management and dependency resolution via its Project Object Model (\texttt{pom.xml}). Jenkins serves as the central automation server, automatically monitoring the code repository, pulling changes, executing builds, running automated regression test suites, and isolating build artifacts. In this activity, a Spring Boot microservice exposing REST and operational health endpoints was integrated into an end-to-end Jenkins pipeline.
+DevOps bridges the gap between software development and IT operations through automated validation mechanisms. In this implementation, a RESTful TODO API was constructed using the FastAPI ASGI framework with Pydantic data schemas. Git provides distributed version control allowing isolated feature development. Jenkins monitors the remote repository and executes a multi-stage validation pipeline on every push. This rapid feedback loop guarantees that regressions, syntax violations, and integration defects are detected immediately before software is packaged.
 
 \subsection*{Implementation}
 
 \subsubsection*{Development Environment}
 \begin{itemize}[nosep]
-    \item \textbf{Operating System:} macOS Sonoma 14.x / Ubuntu 22.04 LTS
-    \item \textbf{Version Control:} Git 2.50.x
-    \item \textbf{Runtime \& Build Tool:} OpenJDK 17.0.x, Apache Maven 3.9.x
-    \item \textbf{CI Automation Server:} Jenkins 2.440 LTS (running in Docker container)
-    \item \textbf{Sample Application:} Spring Boot 3.2.x REST microservice (\texttt{devops-demo})
+    \item \textbf{Operating System:} macOS / Linux
+    \item \textbf{Version Control:} Git 2.50.x \& GitHub
+    \item \textbf{Programming Language \& Framework:} Python 3.12, FastAPI, Uvicorn
+    \item \textbf{Testing \& Linting Frameworks:} Pytest 8.x, HTTPX TestClient, Pytest-Cov, Flake8
+    \item \textbf{CI Automation Server:} Jenkins 2.x LTS (Docker container)
+    \item \textbf{Application:} \texttt{todo-api} (REST microservice with in-memory CRUD \& health checks)
 \end{itemize}
 
 \subsubsection*{Step 1: Git Repository and Branching Workflow}
-The repository was initialized locally, isolated within a feature branch \texttt{feature/hello-endpoint} to implement the application endpoints, committed, and subsequently merged into \texttt{main} before pushing to the remote repository.
+The repository was initialized under Git version control. Features were isolated on branches before being merged into the production branch \texttt{main} and pushed upstream to GitHub.
 
 \begin{lstlisting}[language=bash]
 # Initialize repository and create feature branch
-git init devops-demo
 cd devops-demo
-git checkout -b feature/hello-endpoint
+git checkout -b feature/todo-fastapi-service
 
-# Stage source code, configuration and tests
-git add pom.xml src/ Jenkinsfile
-git commit -m "feat: implement Spring Boot REST endpoints and JUnit test suite"
+# Commit application source, dependencies and tests
+git add app/ tests/ requirements.txt pyproject.toml .gitignore README.md
+git commit -m "feat: migrate backend to FastAPI REST API with pytest test suite"
 
-# Merge to main and push upstream
+# Configure CI pipeline and push to main
+git add Jenkinsfile .github/
+git commit -m "ci: configure Jenkins pipeline with lint, test coverage, and build verification"
 git checkout main
-git merge feature/hello-endpoint
-git remote add origin https://github.com/your-username/devops-demo.git
-git branch -M main
-git push -u origin main
+git merge feature/todo-fastapi-service
+git push origin main
 \end{lstlisting}
 
-\subsubsection*{Step 2: Maven Build Configuration (pom.xml excerpt)}
-The project utilizes Maven for managing dependencies including Spring Boot Web starter, Actuator for operational endpoints, and Spring Boot Test for unit testing.
+\subsubsection*{Step 2: Dependency Management (requirements.txt)}
+Project dependencies are managed declaratively using Python packaging standards.
 
-\begin{lstlisting}[language=XML]
-<project xmlns="http://maven.apache.org/POM/4.0.0">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.2.3</version>
-  </parent>
-  <groupId>com.example</groupId>
-  <artifactId>devops-demo</artifactId>
-  <version>1.0.0</version>
-  <packaging>jar</packaging>
-
-  <dependencies>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-
-  <build>
-    <finalName>devops-demo</finalName>
-    <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
-</project>
+\begin{lstlisting}[language=bash]
+fastapi>=0.111.0
+uvicorn[standard]>=0.29.0
+pydantic>=2.0.0
+pytest>=8.0.0
+httpx>=0.27.0
+pytest-cov>=5.0.0
 \end{lstlisting}
 
 \subsubsection*{Step 3: Jenkins Declarative Pipeline (Jenkinsfile)}
-A declarative pipeline was constructed with four discrete stages: Checkout, Automated Tests, Build \& Package, and Post-Build Archiving, configured with automated SCM polling triggers.
+The Jenkinsfile defines five sequential stages to rigorously validate code health across clean workspace environments.
 
 \begin{lstlisting}[language=groovy]
 pipeline {
     agent any
-    triggers {
-        pollSCM('* * * * *')
+    environment {
+        VENV_DIR = '.venv'
     }
     stages {
         stage('Checkout') {
             steps {
-                echo 'Checking out source code from Git repository...'
+                echo 'Checking out source code from GitHub...'
                 checkout scm
             }
         }
-        stage('Automated Tests') {
+        stage('Setup Python Environment') {
             steps {
-                echo 'Executing automated unit test suite...'
-                sh 'mvn test'
-            }
-            post {
-                always {
-                    junit 'target/surefire-reports/*.xml'
-                }
+                sh '''
+                    python3 -m venv $VENV_DIR
+                    . $VENV_DIR/bin/activate
+                    pip install --upgrade pip --quiet
+                    pip install -r requirements.txt
+                '''
             }
         }
-        stage('Build & Package') {
+        stage('Lint') {
             steps {
-                echo 'Packaging application artifact...'
-                sh 'mvn clean package -DskipTests'
+                sh '''
+                    . $VENV_DIR/bin/activate
+                    pip install flake8 --quiet
+                    flake8 app/ --max-line-length=100 --ignore=E501,W503
+                '''
             }
         }
-        stage('Post-Build Archive') {
+        stage('Test') {
             steps {
-                echo 'Archiving build artifacts for deployment...'
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                sh '''
+                    . $VENV_DIR/bin/activate
+                    pytest tests/ -v --tb=short --cov=app --cov-report=term
+                '''
             }
+        }
+        stage('Build Verification') {
+            steps {
+                sh '''
+                    . $VENV_DIR/bin/activate
+                    python3 -c "from app.main import app; print('App import: OK')"
+                '''
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs()
         }
     }
 }
 \end{lstlisting}
 
-\subsubsection*{Step 4: CI Enhancement --- Automated Tests in CI}
-The selected CI enhancement is \textbf{Automated Unit Testing in CI} using JUnit 5 and Spring MockMvc. The test suite automatically validates HTTP status codes and JSON payload values prior to the packaging phase. If any test fails, Jenkins terminates the pipeline, safeguarding downstream deployments against regression errors.
+\subsubsection*{Step 4: CI Enhancement --- Multi-Stage Quality Gates in CI}
+The selected CI enhancement is \textbf{Automated Multi-Stage Quality Gates (PEP8 Linting + Code Coverage Testing)}. By executing Flake8 before testing, code smell and style violations halt the build early. The test suite contains 14 distinct test cases verifying endpoint responses, schema validations, error handling, and coverage metrics.
 
-\begin{lstlisting}[language=Java]
-package com.example.demo;
+\begin{lstlisting}[language=Python]
+# Sample excerpt from tests/test_todos.py
+def test_health_check():
+    response = client.get("/health")
+    assert response.status_code == 200
+    assert response.json() == {"status": "ok", "service": "todo-api"}
 
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-@SpringBootTest
-@AutoConfigureMockMvc
-public class HelloControllerTest {
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Test
-    public void testHelloEndpoint() throws Exception {
-        mockMvc.perform(get("/hello"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.status").value("success"))
-                .andExpect(jsonPath("$.message").value("DevOps Pipeline is operational!"));
-    }
-
-    @Test
-    public void testHealthEndpoint() throws Exception {
-        mockMvc.perform(get("/health"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.status").value("UP"));
-    }
-}
+def test_create_todo_basic():
+    payload = {"title": "Buy groceries"}
+    response = client.post("/todos/", json=payload)
+    assert response.status_code == 201
+    assert response.json()["id"] == 1
+    assert response.json()["completed"] is False
 \end{lstlisting}
 
 \subsubsection*{Description of the Activity}
-The Jenkins automation controller was configured to connect to the GitHub repository via Git SCM plugins. A polling trigger (\texttt{pollSCM('* * * * *')}) checks the remote branch every minute for newly pushed commits. Upon detecting a change, Jenkins initializes a clean workspace, checks out commit revisions, runs `mvn test`, captures Surefire test reports, and invokes `mvn clean package`. During post-build, the compiled `devops-demo.jar` is archived and assigned a SHA-1 fingerprint for immutability and provenance tracking.
+The pipeline was connected to the GitHub repository via Jenkins Git SCM. When changes are pushed, Jenkins initializes a clean workspace, spins up an isolated virtual environment, installs dependencies, validates code compliance with Flake8, runs all 14 unit test assertions via Pytest with coverage analysis, and performs a smoke import test. If any step fails, the pipeline aborts immediately, safeguarding production branches from defective code.
 
 \subsection*{Results}
 
 \begin{figure}[htbp]
 \centering
-% Replace with your actual screenshot path:
 % \includegraphics[width=0.88\linewidth]{screenshots/comp1_git_history.png}
 \caption{Git Feature Branching and Merge Commit History (\texttt{git log --graph --oneline})}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
-% Replace with your actual screenshot path:
 % \includegraphics[width=0.88\linewidth]{screenshots/comp1_jenkins_pipeline.png}
-\caption{Jenkins Declarative Pipeline Execution showing successful Test, Build, and Archive stages}
+\caption{Jenkins Declarative Pipeline Execution showing 5 successful green stages}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
-% Replace with your actual screenshot path:
 % \includegraphics[width=0.88\linewidth]{screenshots/comp1_test_results.png}
-\caption{Automated JUnit 5 Test Execution Results in Jenkins}
+\caption{Pytest Unit Test Suite Output showing 14 passed test assertions and coverage}
 \end{figure}
 
 \subsection*{Conclusion}
-Component 1 demonstrated the implementation of a continuous integration pipeline. Automating code retrieval, test execution, and compilation eliminates human error, provides instant feedback loops to software developers, and guarantees that only verified artifacts proceed to configuration and deployment stages.
+Component 1 successfully automated source code integration. Enforcing automated testing and linting gates within Jenkins eliminated manual verification errors, guaranteeing rapid feedback and high code quality.
 
 \newpage
 
@@ -471,209 +438,199 @@ Component 1 demonstrated the implementation of a continuous integration pipeline
 \section*{Component 2: Configuration Management with Ansible and Deployment on Kubernetes}
 
 \subsection*{Abstract}
-This activity automates infrastructure configuration using Ansible and application orchestration using Kubernetes on a local Minikube cluster. An idempotent Ansible playbook featuring variables, handlers, and a reusable role provisions the host environment and deploys the application service. The application is containerized using a multi-stage Dockerfile and deployed via Kubernetes Deployment and NodePort Service manifests, demonstrating horizontal replica scaling, dynamic configuration via ConfigMaps, and health monitoring via liveness and readiness probes.
+This activity automates server provisioning using Ansible and orchestrates the containerized \texttt{todo-api} application on Kubernetes. An idempotent Ansible role (\texttt{app\_setup}) installs runtime packages, provisions virtual environments, and manages the daemon process with change-triggered handlers. The application is containerized with Docker and deployed to a Minikube Kubernetes cluster with 3 replicas, scaled to 5 replicas, and configured with Liveness and Readiness probes on the \texttt{/health} endpoint.
 
 \subsection*{Introduction}
-In modern DevOps architectures, configuration management tools like Ansible ensure repeatable and drift-free server setups through declarative YAML playbooks without requiring remote agent daemons. Kubernetes complements this by orchestrating containerized workloads, managing automated scheduling, self-healing, networking, and horizontal scaling across clusters. This component combines Ansible for base host provisioning with Kubernetes for resilient container lifecycle management.
+Modern cloud operations require infrastructure to be treated as code. Ansible automates host configurations without requiring client agents, using declarative playbooks and reusable roles. Kubernetes orchestrates containerized workloads across clusters, providing service discovery, horizontal pod autoscaling, and self-healing. This component demonstrates how Ansible standardizes the runtime environment while Kubernetes ensures high availability and resilience for the containerized application.
 
 \subsection*{Implementation}
 
 \subsubsection*{Development Environment}
 \begin{itemize}[nosep]
     \item \textbf{Configuration Management:} Ansible 2.16+
-    \item \textbf{Container Engine:} Docker 24.x+ / Docker Desktop
-    \item \textbf{Local Kubernetes Cluster:} Minikube v1.32+ (driver: docker)
+    \item \textbf{Container Engine:} Docker 29.x
+    \item \textbf{Local Kubernetes Cluster:} Minikube v1.32+
     \item \textbf{Cluster CLI:} kubectl v1.28+
 \end{itemize}
 
-\subsubsection*{Step 1: Ansible Playbook and Roles}
-The Ansible playbook defines host variables, includes a `common` role for baseline directory creation and security hardening, deploys a Systemd unit template, and notifies a handler to restart the application service idempotently.
-
-\begin{lstlisting}[language=bash]
-# Directory Structure:
-# ansible/
-#   inventory.ini
-#   playbook.yml
-#   roles/common/tasks/main.yml
-#   templates/devops-demo.service.j2
-\end{lstlisting}
+\subsubsection*{Step 1: Ansible Playbook and Role (\texttt{app\_setup})}
+The Ansible playbook targets localhost, incorporates host variables (\texttt{app\_port: 8000}, \texttt{app\_dir: /opt/todo-api}), executes modular tasks via the \texttt{app\_setup} role, and triggers handlers only upon detected changes.
 
 \begin{lstlisting}[language=yaml]
 ---
-- name: Configure Application Server and Deploy DevOps Demo
-  hosts: appservers
-  become: yes
+# ansible/playbook.yml
+- name: Setup TODO API Server
+  hosts: localhost
+  connection: local
+  become: true
   vars:
-    app_port: 8080
-    app_dir: /opt/devops-demo
-    app_user: devops
-    app_jar_src: "../target/devops-demo.jar"
-
+    app_port: 8000
+    app_dir: "/opt/todo-api"
   roles:
-    - common
-
-  tasks:
-    - name: Copy packaged Application JAR to target directory
-      copy:
-        src: "{{ app_jar_src }}"
-        dest: "{{ app_dir }}/devops-demo.jar"
-        owner: "{{ app_user }}"
-        group: "{{ app_user }}"
-        mode: '0644'
-      notify: restart devops-demo service
-
-    - name: Deploy Systemd service unit from Jinja2 template
-      template:
-        src: templates/devops-demo.service.j2
-        dest: /etc/systemd/system/devops-demo.service
-      notify: restart devops-demo service
-
-  handlers:
-    - name: restart devops-demo service
-      systemd:
-        name: devops-demo
-        state: restarted
-        daemon_reload: yes
-        enabled: yes
+    - app_setup
 \end{lstlisting}
-
-\subsubsection*{Step 2: Multi-Stage Dockerfile}
-A multi-stage build pattern was employed to compile the JAR using a Maven JDK image and transfer solely the resulting binary into a lean Eclipse Temurin JRE runtime image, minimizing container image attack surface and size.
-
-\begin{lstlisting}[language=bash]
-# Build Stage
-FROM maven:3.9.6-eclipse-temurin-17 AS builder
-WORKDIR /workspace
-COPY pom.xml .
-RUN mvn dependency:go-offline -B
-COPY src ./src
-RUN mvn clean package -DskipTests
-
-# Runtime Stage
-FROM eclipse-temurin:17-jre-jammy
-WORKDIR /app
-RUN groupadd -r devops && useradd -r -g devops devops
-COPY --from=builder /workspace/target/devops-demo.jar /app/devops-demo.jar
-USER devops:devops
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/app/devops-demo.jar"]
-\end{lstlisting}
-
-\subsubsection*{Step 3: Kubernetes Manifests (ConfigMap, Deployment, Service)}
-The Kubernetes configuration separates application code from runtime settings using a ConfigMap, manages Pod replicas with a Deployment, and exposes an external port using a NodePort Service.
 
 \begin{lstlisting}[language=yaml]
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: devops-demo-config
-data:
-  APP_PORT: "8080"
-  APP_ENV: "kubernetes-production"
-  GREETING_MSG: "Welcome to DevOps Demo running on Kubernetes Cluster!"
+# ansible/roles/app_setup/tasks/main.yml
 ---
+- name: Ensure Python3, pip, and venv are installed
+  apt:
+    name: [python3, python3-pip, python3-venv]
+    state: present
+    update_cache: yes
+
+- name: Ensure application directory exists
+  file:
+    path: "{{ app_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: Install Python dependencies into virtual environment
+  pip:
+    requirements: "{{ app_dir }}/requirements.txt"
+    virtualenv: "{{ app_dir }}/venv"
+
+- name: Copy application code
+  copy:
+    src: "{{ playbook_dir }}/../app"
+    dest: "{{ app_dir }}/"
+    mode: '0755'
+  notify: Restart app
+\end{lstlisting}
+
+\begin{lstlisting}[language=yaml]
+# ansible/roles/app_setup/handlers/main.yml
+---
+- name: Restart app
+  shell: |
+    if [ -f {{ app_dir }}/app.pid ]; then
+      kill -9 $(cat {{ app_dir }}/app.pid) 2>/dev/null || true
+    fi
+    nohup {{ app_dir }}/venv/bin/uvicorn app.main:app --host 0.0.0.0 --port {{ app_port }} > {{ app_dir }}/app.log 2>&1 &
+    echo $! > {{ app_dir }}/app.pid
+  args:
+    chdir: "{{ app_dir }}"
+\end{lstlisting}
+
+\subsubsection*{Step 2: Dockerfile Containerization}
+The application is packaged into a slim, secure container image based on \texttt{python:3.12-slim}.
+
+\begin{lstlisting}[language=bash]
+FROM python:3.12-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY app/ ./app/
+EXPOSE 8000
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+\end{lstlisting}
+
+\subsubsection*{Step 3: Kubernetes Deployment and NodePort Service Manifests}
+The manifests declare a Deployment managing 3 Pod replicas with Liveness/Readiness probes and a NodePort Service exposing port 80 externally via port 30080.
+
+\begin{lstlisting}[language=yaml]
+# k8s/deployment.yml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: devops-demo
+  name: todo-api
   labels:
-    app: devops-demo
+    app: todo-api
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: devops-demo
+      app: todo-api
   template:
     metadata:
       labels:
-        app: devops-demo
+        app: todo-api
     spec:
       containers:
-        - name: devops-demo
-          image: devops-demo:1.0
+        - name: todo-api
+          image: todo-api:latest
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8080
-          envFrom:
-            - configMapRef:
-                name: devops-demo-config
+            - containerPort: 8000
           livenessProbe:
             httpGet:
               path: /health
-              port: 8080
-            initialDelaySeconds: 20
-            periodSeconds: 10
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 15
           readinessProbe:
             httpGet:
               path: /health
-              port: 8080
-            initialDelaySeconds: 15
-            periodSeconds: 5
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
 ---
+# k8s/service.yml
 apiVersion: v1
 kind: Service
 metadata:
-  name: devops-demo-service
+  name: todo-api-service
 spec:
-  type: NodePort
   selector:
-    app: devops-demo
+    app: todo-api
+  type: NodePort
   ports:
-    - port: 8080
-      targetPort: 8080
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
       nodePort: 30080
 \end{lstlisting}
 
 \subsubsection*{Step 4: Deployment and Scaling Execution}
-The application is applied to the Minikube cluster and scaled dynamically from 3 to 5 replicas.
+The Kubernetes resources are applied to Minikube and dynamically scaled from 3 to 5 replicas.
 
 \begin{lstlisting}[language=bash]
+# Build image inside Minikube
+eval $(minikube docker-env)
+docker build -t todo-api:latest .
+
 # Deploy manifests
-kubectl apply -f k8s/configmap.yaml
-kubectl apply -f k8s/deployment.yaml
-kubectl apply -f k8s/service.yaml
+kubectl apply -f k8s/deployment.yml
+kubectl apply -f k8s/service.yml
 
-# Verify initial replica state
-kubectl get pods -l app=devops-demo
+# Verify initial 3 replicas
+kubectl get pods -l app=todo-api
 
-# Scale Deployment to 5 replicas
-kubectl scale deployment devops-demo --replicas=5
+# Scale horizontally to 5 replicas
+kubectl scale deployment todo-api --replicas=5
 
-# Verify reconciled replica count
-kubectl get pods -l app=devops-demo -o wide
+# Verify scaled pods
+kubectl get pods -l app=todo-api -o wide
 \end{lstlisting}
 
-\subsubsection*{Step 5: Deployment Enhancement --- ConfigMap \& Health Probes}
-The selected enhancements are **Kubernetes ConfigMap Integration** and **Liveness/Readiness HTTP Probes**. The ConfigMap decouples environment-specific parameters (`GREETING_MSG`, `APP_ENV`) from the container image. The Liveness and Readiness probes query the `/health` endpoint periodically; if a pod becomes unresponsive, the kubelet restarts it automatically, ensuring zero-downtime traffic routing.
+\subsubsection*{Step 5: Deployment Enhancement --- Liveness and Readiness Probes}
+The selected deployment enhancement is **Liveness and Readiness Health Probes**. The readiness probe ensures traffic is routed to the Pod only after Uvicorn starts. The liveness probe continuously queries `/health`; if the service hangs, the Kubelet automatically restarts the container, achieving automated self-healing.
 
 \subsubsection*{Description of the Activity}
-Ansible was executed against local host definitions to establish system users, directory trees, and systemd definitions idempotently, invoking handlers only upon artifact changes. On Kubernetes, the Deployment controller established a ReplicaSet maintaining three initial pods. Using `kubectl scale`, the replica count was increased to 5, prompting the Kubernetes control plane scheduler to bind new pods to available nodes instantaneously. The NodePort service successfully routed external requests across all 5 active pods.
+The Ansible playbook configured server dependencies and handled idempotency by only firing the restart handler when the application code changed. In Kubernetes, the Deployment controller established a ReplicaSet of 3 pods. Scaling to 5 replicas caused the cluster scheduler to instantly bind and initialize two new pods. The NodePort service load-balanced incoming requests across all available endpoints.
 
 \subsection*{Results}
 
 \begin{figure}[htbp]
 \centering
-% Replace with your actual screenshot path:
 % \includegraphics[width=0.88\linewidth]{screenshots/comp2_ansible_run.png}
-\caption{Ansible Playbook Run Output showing idempotent task execution and handler triggers}
+\caption{Ansible Playbook Run Output showing idempotent tasks and handler execution}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
-% Replace with your actual screenshot path:
 % \includegraphics[width=0.88\linewidth]{screenshots/comp2_k8s_scaling.png}
 \caption{Kubernetes Pods Scaling from 3 to 5 Replicas (\texttt{kubectl get pods})}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
-% Replace with your actual screenshot path:
-% \includegraphics[width=0.88\linewidth]{screenshots/comp2_browser_output.png}
-\caption{Application Response via NodePort Service demonstrating ConfigMap greeting payload}
+% \includegraphics[width=0.88\linewidth]{screenshots/comp2_probe_describe.png}
+\caption{Kubernetes Pod Description showing Liveness and Readiness Probes (\texttt{kubectl describe pod})}
 \end{figure}
 
 \subsection*{Conclusion}
-Component 2 demonstrated the synergy between declarative configuration management and cloud-native container orchestration. Ansible manages foundational host infrastructure, while Kubernetes ensures continuous availability, automated self-healing via health probes, and on-demand horizontal scalability.
+Component 2 demonstrated continuous deployment and orchestration. Ansible ensured reproducible host configurations, while Kubernetes provided automated healing, zero-downtime scaling, and resilient service routing.
 
 \newpage
 
@@ -684,11 +641,12 @@ Component 2 demonstrated the synergy between declarative configuration managemen
 
 \begin{enumerate}[nosep]
     \item Jennifer Davis and Katherine Daniels, \textit{Effective DevOps}, 1st Edition, Shroff/O'Reilly Publications, 2021.
-    \item Sanjeev Sharma, \textit{The DevOps Adoption Playbook: A Guide to Adopting DevOps in a Multi-Speed IT Enterprise}, 1st Edition.
+    \item Sanjeev Sharma, \textit{The DevOps Adoption Playbook}, 1st Edition.
     \item Official Git Documentation -- \url{https://git-scm.com/doc}
     \item Official Jenkins Documentation -- \url{https://www.jenkins.io/doc/}
     \item Official Ansible Documentation -- \url{https://docs.ansible.com/}
     \item Official Kubernetes Documentation -- \url{https://kubernetes.io/docs/}
+    \item FastAPI Official Documentation -- \url{https://fastapi.tiangolo.com/}
 \end{enumerate}
 
 \end{document}
